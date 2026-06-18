@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manufactured Homes — Mobile View Properties</title>
+  <link rel="icon" type="image/png" href="/image/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#0a0a0a;--bg2:#111;--bg3:#1a1a1a;--bge:#222;--border:#333;--border2:#1f1f1f;--text:#f5f5f5;--text2:#a1a1aa;--muted:#71717a;--gold:#f59e0b;--gold2:#d97706;--ok:#22c55e;--ok2:#16a34a;--font:'Inter',sans-serif;--r:10px;--r2:14px;}
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;}
+    a{color:var(--gold);text-decoration:none;transition:.15s ease;}
+    img{max-width:100%;display:block;}
+    .max{max-width:1200px;margin:0 auto;padding:0 24px;}
+    .nav{position:fixed;inset:0 auto auto 0;width:100%;z-index:100;background:rgba(10,10,10,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border2);}
+    .nav .max{height:72px;display:flex;align-items:center;justify-content:space-between;}
+    .nav-logo{height:44px;}
+    .nav-links{display:flex;gap:32px;align-items:center;}
+    .nav-links a{font-size:.875rem;font-weight:500;color:var(--text2);letter-spacing:.02em;}
+    .nav-links a:hover{color:var(--text);}
+    .nav-cta{display:inline-flex;align-items:center;gap:6px;background:var(--gold);color:#000;font-size:.8rem;font-weight:600;padding:9px 18px;border-radius:6px;}
+    .nav-cta:hover{background:var(--gold2);color:#000;}
+    .nav-toggle{display:none;background:none;border:none;color:var(--text);cursor:pointer;padding:8px;}
+    .page-hero{position:relative;padding:160px 24px 80px;text-align:center;overflow:hidden;}
+    .page-hero-bg{position:absolute;inset:0;z-index:0;background:url('https://s7d9.scene7.com/is/image/championhomes/Exterior_%201%20Crop?wid=1600&hei=800&fit=crop') center/cover;filter:brightness(.3);}
+    .page-hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(to bottom,rgba(10,10,10,.7),rgba(10,10,10,.4) 50%,rgba(10,10,10,.95));}
+    .page-hero-content{position:relative;z-index:2;max-width:760px;margin:0 auto;}
+    .eyebrow{display:inline-block;font-size:.75rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(245,158,11,.35);padding:6px 14px;border-radius:6px;margin-bottom:20px;}
+    .page-hero h1{font-size:clamp(2.2rem,5vw,3.4rem);font-weight:700;line-height:1.1;letter-spacing:-.02em;margin-bottom:20px;}
+    .page-hero h1 span{color:var(--gold);}
+    .page-hero p{font-size:1.05rem;color:var(--text2);line-height:1.7;max-width:640px;margin:0 auto 32px;}
+    .btn-primary{display:inline-flex;align-items:center;gap:10px;background:var(--gold);color:#000;font-size:.95rem;font-weight:600;padding:14px 32px;border-radius:6px;transition:.15s ease;}
+    .btn-primary:hover{background:var(--gold2);color:#000;transform:translateY(-2px);box-shadow:0 8px 24px rgba(245,158,11,.25);}
+    .btn-back{display:inline-flex;align-items:center;gap:8px;font-size:.85rem;font-weight:500;color:var(--text2);margin-bottom:32px;}
+    .btn-back:hover{color:var(--gold);}
+    .content-section{padding:80px 24px;border-top:1px solid var(--border2);}
+    .content-section.alt{background:var(--bg2);}
+    .content-section .max{max-width:1200px;margin:0 auto;}
+    .section-label{font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
+    .section-heading{font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:700;letter-spacing:-.02em;margin-bottom:20px;line-height:1.2;}
+    .section-heading span{color:var(--gold);}
+    .section-body{font-size:.95rem;color:var(--text2);line-height:1.8;max-width:720px;}
+    .section-body p+p{margin-top:16px;}
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;}
+    .two-col.reverse{direction:rtl;}
+    .two-col.reverse>*{direction:ltr;}
+    .col-img{border-radius:var(--r2);overflow:hidden;aspect-ratio:4/3;}
+    .col-img img{width:100%;height:100%;object-fit:cover;}
+    .benefits-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:40px;}
+    .benefit-card{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r2);padding:24px;transition:.25s ease;}
+    .benefit-card:hover{border-color:var(--border);transform:translateY(-3px);}
+    .benefit-title{font-size:1rem;font-weight:600;margin-bottom:8px;color:var(--gold);}
+    .benefit-text{font-size:.87rem;color:var(--text2);line-height:1.6;}
+    .cta-band{background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.2);border-radius:var(--r2);padding:48px;text-align:center;margin-top:64px;}
+    .cta-band h3{font-size:1.6rem;font-weight:700;margin-bottom:12px;}
+    .cta-band p{color:var(--text2);margin-bottom:28px;max-width:540px;margin-left:auto;margin-right:auto;}
+    .footer{background:var(--bg2);border-top:1px solid var(--border2);padding:40px 24px;text-align:center;}
+    .footer-text{font-size:.8rem;color:var(--muted);}
+    .fab-wa{position:fixed;bottom:24px;right:24px;z-index:90;display:flex;align-items:center;gap:10px;background:var(--ok);color:#fff;font-size:.85rem;font-weight:600;padding:10px 20px;border-radius:50px;border:none;cursor:pointer;transition:.15s ease;box-shadow:0 6px 20px rgba(0,0,0,.4);}
+    .fab-wa:hover{transform:scale(1.04);}
+    .fab-wa svg{width:24px;height:24px;}
+    @media(max-width:768px){
+      .two-col{grid-template-columns:1fr;gap:40px;}
+      .two-col.reverse{direction:ltr;}
+      .benefits-grid{grid-template-columns:1fr;}
+      .nav-links{display:none;position:absolute;top:72px;left:0;right:0;background:var(--bg2);flex-direction:column;padding:20px 24px;border-bottom:1px solid var(--border2);gap:16px;}
+      .nav-links.open{display:flex;}
+      .nav-toggle{display:block;}
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="max">
+      <a href="/"><img src="/image/logo.png" alt="Mobile View Properties" class="nav-logo"></a>
+      <div class="nav-links" id="navLinks">
+        <a href="/#showroom">Showroom</a>
+        <a href="/#metrics">Our Impact</a>
+        <a href="/#types">Home Types</a>
+        <a href="/#contact">Contact</a>
+        <a href="https://wa.me/12139420224" target="_blank" rel="noopener noreferrer" class="nav-cta">Message Us</a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <section class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-overlay"></div>
+    <div class="page-hero-content">
+      <span class="eyebrow">Mobile View Properties</span>
+      <h1>Manufactured <span>Homes</span></h1>
+      <p>High-quality, affordable, and beautifully designed — our manufactured homes are built in a controlled factory environment and delivered ready to move in.</p>
+      <a href="https://wa.me/12139420224" target="_blank" rel="noopener noreferrer" class="btn-primary">Get a Quote on WhatsApp</a>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <div class="max">
+      <a href="/" class="btn-back">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back to Home
+      </a>
+      <div class="two-col">
+        <div>
+          <div class="section-label">What is a Manufactured Home?</div>
+          <h2 class="section-heading">Quality Built. <span>Affordably Priced.</span></h2>
+          <div class="section-body">
+            <p>A manufactured home is a factory-built residence constructed under the federal HUD code — the national building standard for manufactured housing. These homes are built entirely in a controlled factory environment, then transported to your chosen home site.</p>
+            <p>At Mobile View Properties, we carry a wide selection of manufactured homes ranging from single-section starter homes to spacious multi-section designs with premium finishes. Our expert team assists you from selection through delivery and installation.</p>
+          </div>
+        </div>
+        <div class="col-img">
+          <img src="https://s7d9.scene7.com/is/image/championhomes/Exterior_%201%20Crop?qlt=85&ts=1723740583370&dpr=off" alt="Manufactured Home" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section alt">
+    <div class="max">
+      <div class="section-label">Why Choose Manufactured?</div>
+      <h2 class="section-heading">Smart Value. <span>Real Quality.</span></h2>
+      <p style="color:var(--text2);font-size:.95rem;line-height:1.8;max-width:640px;">Manufactured homes deliver exceptional value for buyers who want a quality home without the high cost of traditional construction. Here is why thousands of families choose manufactured housing every year.</p>
+      <div class="benefits-grid">
+        <div class="benefit-card">
+          <div class="benefit-title">Significant Cost Savings</div>
+          <div class="benefit-text">Manufactured homes typically cost 30–50% less per square foot than site-built homes, making home ownership genuinely accessible for first-time buyers and growing families.</div>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-title">Fast Move-In Timeline</div>
+          <div class="benefit-text">Factory construction can be completed in weeks rather than months. Once your site is prepared, your home can be delivered and installed quickly — so you move in sooner.</div>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-title">Consistent Build Quality</div>
+          <div class="benefit-text">Factory assembly eliminates weather delays and quality inconsistencies common to on-site builds. Every home is inspected at multiple stages before leaving the factory.</div>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-title">Customisation Options</div>
+          <div class="benefit-text">Choose your floor plan, exterior style, kitchen layout, flooring, cabinets, and more. Modern manufactured homes offer an impressive range of personalisation options.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <div class="max">
+      <div class="two-col reverse">
+        <div>
+          <div class="section-label">Modern Design</div>
+          <h2 class="section-heading">Built for <span>Real Life</span></h2>
+          <div class="section-body">
+            <p>Today's manufactured homes bear little resemblance to their predecessors. Open floor plans, vaulted ceilings, premium kitchen and bathroom finishes, and energy-efficient construction are now standard — not upgrades.</p>
+            <p>Our homes are designed to suit every lifestyle and land type: permanent foundations, rural acreage, or land-lease communities. Mobile View Properties handles site evaluation, logistics, and delivery coordination globally.</p>
+          </div>
+        </div>
+        <div class="col-img">
+          <img src="https://images.pexels.com/photos/1396132/pexels-photo-1396132.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop" alt="Modern Manufactured Home Interior" loading="lazy">
+        </div>
+      </div>
+
+      <div class="cta-band">
+        <h3>Find Your Perfect Manufactured Home</h3>
+        <p>Browse our live showroom inventory or connect with Marilyn Alvarado directly to discuss models, pricing, and delivery to your location.</p>
+        <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+          <a href="/#showroom" class="btn-primary">Browse Showroom</a>
+          <a href="https://wa.me/12139420224" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:10px;background:var(--ok);color:#fff;font-size:.95rem;font-weight:600;padding:14px 32px;border-radius:6px;transition:.15s ease;">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Chat on WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="max">
+      <p class="footer-text">© Mobile View Properties. All rights reserved. — CEO Marilyn Alvarado</p>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/12139420224" target="_blank" rel="noopener noreferrer" class="fab-wa" aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    Chat Us Now
+  </a>
+
+  <script>
+    document.getElementById('navToggle').addEventListener('click',function(){
+      document.getElementById('navLinks').classList.toggle('open');
+    });
+  </script>
+</body>
+</html>
