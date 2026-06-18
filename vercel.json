@@ -1,6 +1,8 @@
 {
   "cleanUrls": false,
   "trailingSlash": false,
+  "buildCommand": "node scripts/generate-manifest.js",
+  "outputDirectory": ".",
   "headers": [
     {
       "source": "/(.*)",
