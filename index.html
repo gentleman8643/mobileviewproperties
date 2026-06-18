@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mobile View Properties — A Smarter Way to Build</title>
-  <link rel="icon" type="image/png" href="/image/favicon.png">
+  <link rel="icon" type="image/png" href="/public/images/favicon.png">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -32,7 +32,7 @@
     .nav-toggle{display:none;background:none;border:none;color:var(--text);cursor:pointer;padding:8px}
 
     .hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding:120px 24px 80px}
-    .hero-bg{position:absolute;inset:0;z-index:0;background:url('/image/hero.png') center/cover;filter:brightness(.35)}
+    .hero-bg{position:absolute;inset:0;z-index:0;background:url('/public/images/hero.png') center/cover;filter:brightness(.35)}
     .hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(to bottom,rgba(10,10,10,.6),rgba(10,10,10,.3) 50%,rgba(10,10,10,.9))}
     .hero-content{position:relative;z-index:2;max-width:800px}
     .hero-eyebrow{display:inline-block;font-size:.75rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(245,158,11,.35);padding:6px 14px;border-radius:6px;margin-bottom:24px}
@@ -82,6 +82,22 @@
     .btn-view-sm{display:inline-flex;align-items:center;gap:6px;background:var(--bg3);color:var(--text);border:1px solid var(--border);font-size:.8rem;font-weight:600;padding:8px 14px;border-radius:6px;cursor:pointer;transition:.15s ease}
     .btn-view-sm:hover{border-color:var(--gold);color:var(--gold)}
     .home-card-empty{grid-column:1/-1;text-align:center;padding:60px 24px;color:var(--muted);font-size:1rem}
+    .home-card-features{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+    .home-card-feature{font-size:.72rem;color:var(--text2);background:var(--bg3);border:1px solid var(--border2);border-radius:6px;padding:4px 9px}
+    .pagination{max-width:1200px;margin:36px auto 0;display:flex;align-items:center;justify-content:center;gap:18px}
+    .page-btn{display:inline-flex;align-items:center;gap:6px;background:var(--bg3);color:var(--text);border:1px solid var(--border);font-size:.85rem;font-weight:600;padding:10px 18px;border-radius:6px;cursor:pointer;transition:.15s ease}
+    .page-btn:hover:not(:disabled){border-color:var(--gold);color:var(--gold)}
+    .page-btn:disabled{opacity:.4;cursor:not-allowed}
+    .page-info{font-size:.85rem;color:var(--muted);font-weight:500;min-width:110px;text-align:center}
+    .modal-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px;padding:16px;max-height:340px;overflow-y:auto;background:#000}
+    .modal-gallery img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:6px;cursor:pointer;transition:.15s ease}
+    .modal-gallery img:hover{transform:scale(1.03);outline:2px solid var(--gold)}
+    .modal-gallery video{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:6px;grid-column:1/-1}
+    .modal-features{padding:0 24px 24px}
+    .modal-features-title{font-size:.8rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+    .modal-features-list{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+    .modal-feature{font-size:.8rem;color:var(--text2);background:var(--bg3);border:1px solid var(--border2);border-radius:6px;padding:6px 12px}
+    .modal-about{font-size:.88rem;color:var(--text2);line-height:1.7}
 
     .modal-overlay{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.85);backdrop-filter:blur(8px);display:none;align-items:flex-start;justify-content:center;overflow-y:auto;padding:40px 16px}
     .modal-overlay.active{display:flex}
@@ -208,7 +224,7 @@
 <body>
   <nav class="nav">
     <div class="max">
-      <img src="/image/logo.png" alt="Mobile View Properties" class="nav-logo">
+      <img src="/public/images/logo.png" alt="Mobile View Properties" class="nav-logo">
       <div class="nav-links" id="navLinks">
         <a href="#showroom">Showroom</a>
         <a href="#metrics">Our Impact</a>
@@ -263,6 +279,17 @@
     <div class="results-grid" id="resultsGrid" style="display:none">
       <div class="results-count" id="resultsCount"></div>
     </div>
+    <div class="pagination" id="pagination" style="display:none">
+      <button class="page-btn" id="prevBtn" type="button">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
+        Prev
+      </button>
+      <span class="page-info" id="pageInfo">Page 1 of 1</span>
+      <button class="page-btn" id="nextBtn" type="button">
+        Next
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
   </section>
 
   <div class="modal-overlay" id="inspectionModal">
@@ -276,7 +303,7 @@
       </div>
       <div class="modal-subbar">
         <div class="modal-subbar-brand">
-          <img src="/image/logo.png" alt="Mobile View Properties" class="modal-subbar-logo">
+          <img src="/public/images/logo.png" alt="Mobile View Properties" class="modal-subbar-logo">
           <div class="modal-subbar-text"><strong>Mobile View Properties</strong><br>Marilyn Alvarado, CEO</div>
         </div>
         <div class="modal-tabs">
@@ -309,6 +336,12 @@
           <div class="modal-meta-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 12h16M4 12l2-4h12l2 4M6 12v6h12v-6"/></svg></div>
           <div><div class="modal-meta-label">Bathrooms</div><div class="modal-meta-value" id="modalBaths">0</div></div>
         </div>
+      </div>
+      <div class="modal-features" id="modalFeaturesWrap" style="display:none">
+        <div class="modal-features-title">Features</div>
+        <div class="modal-features-list" id="modalFeatures"></div>
+        <div class="modal-features-title">About This Home</div>
+        <div class="modal-about" id="modalAbout"></div>
       </div>
       <div class="modal-action">
         <a id="modalWhatsApp" href="https://wa.me/12139420224" target="_blank" rel="noopener noreferrer" class="btn-wa">
@@ -352,7 +385,7 @@
       <div class="types-grid">
         <a href="manufactured.html" class="type-card">
           <div class="type-card-img-wrap">
-            <img class="type-card-img" src="https://s7d9.scene7.com/is/image/championhomes/Exterior_%201%20Crop?wid=800&hei=500&fit=crop" alt="Manufactured Homes" loading="lazy">
+            <img class="type-card-img" src="https://s7d9.scene7.com/is/public/images/championhomes/Exterior_%201%20Crop?wid=800&hei=500&fit=crop" alt="Manufactured Homes" loading="lazy">
           </div>
           <div class="type-card-body">
             <div class="type-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
@@ -363,7 +396,7 @@
         </a>
         <a href="modular.html" class="type-card">
           <div class="type-card-img-wrap">
-            <img class="type-card-img" src="https://s7d9.scene7.com/is/image/championhomes/0612-MV-Champion-0017%20copy?wid=800&hei=500&fit=crop" alt="Modular Homes" loading="lazy">
+            <img class="type-card-img" src="https://s7d9.scene7.com/is/public/images/championhomes/0612-MV-Champion-0017%20copy?wid=800&hei=500&fit=crop" alt="Modular Homes" loading="lazy">
           </div>
           <div class="type-card-body">
             <div class="type-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
@@ -374,7 +407,7 @@
         </a>
         <a href="park-models.html" class="type-card">
           <div class="type-card-img-wrap">
-            <img class="type-card-img" src="https://s7d9.scene7.com/is/image/championhomes/26-print-park-model-528-070-014%20copy?wid=800&hei=500&fit=crop" alt="Park Models & Cabins" loading="lazy">
+            <img class="type-card-img" src="https://s7d9.scene7.com/is/public/images/championhomes/26-print-park-model-528-070-014%20copy?wid=800&hei=500&fit=crop" alt="Park Models & Cabins" loading="lazy">
           </div>
           <div class="type-card-body">
             <div class="type-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 10l7-7 7 7"/><path d="M12 3v18"/></svg></div>
@@ -429,7 +462,7 @@
     <div class="max">
       <div class="footer-grid">
         <div>
-          <img src="/image/logo.png" alt="Mobile View Properties" class="footer-logo">
+          <img src="/public/images/logo.png" alt="Mobile View Properties" class="footer-logo">
           <div class="footer-col-text">Mobile View Properties — Manufactured & Sold globally by CEO Marilyn Alvarado.</div>
         </div>
         <div>
@@ -471,26 +504,18 @@
   (function(){
     'use strict';
     const SHEET_URL='https://docs.google.com/spreadsheets/d/e/2PACX-1vRDD5hM2ozmrnguuf3r_uKjLXI6-8LLzFWB2obScGl61YD0WDrGdVGDpZmAffX_FHrWR6NitqzyZc2G/pub?output=csv';
+    const MANIFEST_URL='/public/properties/manifest.json';
     const WA='12139420224';
-    const DEMO_HOMES=[
-      {id:'MVP33000',name:'New Moon 3276A',manufacturer:'Mobile View Properties',status:'In Stock/Ready to Tour',startingPrice:'$137,000',priceNum:137000,beds:4,baths:2,sqft:2305,threedUrl:'https://my.matterport.com/show/?m=1UUqt8tk3cp'},
-      {id:'MVP33001',name:'Bourbon',manufacturer:'Mobile View Properties',status:'In Stock/Ready to Tour',startingPrice:'$130,000',priceNum:130000,beds:4,baths:2,sqft:2305,threedUrl:'https://my.matterport.com/show/?m=ppxdJaoTGcF'},
-      {id:'MVP33002',name:'Prairie Dune 8978',manufacturer:'Mobile View Properties',status:'Made As Client Requested',startingPrice:'$140,000',priceNum:140000,beds:4,baths:2,sqft:2280,threedUrl:'https://my.matterport.com/show/?m=2uYh4hqyCZR'},
-      {id:'MVP33003',name:'Coming Soon',manufacturer:'Mobile View Properties',status:'Coming Soon',startingPrice:'TBD',priceNum:0,beds:0,baths:0,sqft:0,threedUrl:''},
-      {id:'MVP33004',name:'Coming Soon',manufacturer:'Mobile View Properties',status:'Coming Soon',startingPrice:'TBD',priceNum:0,beds:0,baths:0,sqft:0,threedUrl:''},
-      {id:'MVP33005',name:'Coming Soon',manufacturer:'Mobile View Properties',status:'Coming Soon',startingPrice:'TBD',priceNum:0,beds:0,baths:0,sqft:0,threedUrl:''},
-      {id:'MVP33006',name:'Coming Soon',manufacturer:'Mobile View Properties',status:'Coming Soon',startingPrice:'TBD',priceNum:0,beds:0,baths:0,sqft:0,threedUrl:''},
-      {id:'MVP33007',name:'Coming Soon',manufacturer:'Mobile View Properties',status:'Coming Soon',startingPrice:'TBD',priceNum:0,beds:0,baths:0,sqft:0,threedUrl:''},
-      {id:'MVP33008',name:'Coming Soon',manufacturer:'Mobile View Properties',status:'Coming Soon',startingPrice:'TBD',priceNum:0,beds:0,baths:0,sqft:0,threedUrl:''},
-      {id:'MVP33009',name:'Coming Soon',manufacturer:'Mobile View Properties',status:'Coming Soon',startingPrice:'TBD',priceNum:0,beds:0,baths:0,sqft:0,threedUrl:''},
-      {id:'MVP33010',name:'Coming Soon',manufacturer:'Mobile View Properties',status:'Coming Soon',startingPrice:'TBD',priceNum:0,beds:0,baths:0,sqft:0,threedUrl:''},
-      {id:'MVP33011',name:'Coming Soon',manufacturer:'Mobile View Properties',status:'Coming Soon',startingPrice:'TBD',priceNum:0,beds:0,baths:0,sqft:0,threedUrl:''}
-    ];
+    const PER_PAGE=2;
+
     const spinner=document.getElementById('spinner');
-    const spinnerText=document.getElementById('spinnerText');
     const filterBar=document.getElementById('filterBar');
     const resultsGrid=document.getElementById('resultsGrid');
     const resultsCount=document.getElementById('resultsCount');
+    const pagination=document.getElementById('pagination');
+    const prevBtn=document.getElementById('prevBtn');
+    const nextBtn=document.getElementById('nextBtn');
+    const pageInfo=document.getElementById('pageInfo');
     const fn=document.getElementById('filterName');
     const fb=document.getElementById('filterBeds');
     const fbu=document.getElementById('filterBudget');
@@ -498,34 +523,37 @@
     const modalClose=document.getElementById('modalClose');
     const navToggle=document.getElementById('navToggle');
     const navLinks=document.getElementById('navLinks');
-    let allHomes=[], filteredHomes=[];
+    let allHomes=[], filteredHomes=[], manifest={}, currentPage=1;
 
     function parseCSV(text){
-      const lines=text.trim().split('\n'); if(!lines.length) return [];
-      const headers=parseCSVLine(lines[0]);
-      const rows=[];
-      for(let i=1;i<lines.length;i++){
-        const vals=parseCSVLine(lines[i]);
-        if(vals.length<headers.length) continue;
-        const row={};
-        for(let j=0;j<headers.length;j++) row[headers[j]]=vals[j]!==undefined?vals[j].trim():'';
-        rows.push(row);
+      const rows=[]; let row=[], cell='', q=false;
+      for(let i=0;i<text.length;i++){
+        const ch=text[i], nx=text[i+1];
+        if(ch==='"'){ if(q&&nx==='"'){ cell+='"'; i++; } else { q=!q; } }
+        else if(ch===','&&!q){ row.push(cell); cell=''; }
+        else if((ch==='\n'||ch==='\r')&&!q){ if(ch==='\r'&&nx==='\n') i++; row.push(cell); rows.push(row); row=[]; cell=''; }
+        else { cell+=ch; }
       }
-      return rows;
-    }
-    function parseCSVLine(line){
-      const r=[]; let c='',q=false;
-      for(let i=0;i<line.length;i++){
-        const ch=line[i], nx=line[i+1];
-        if(ch==='"'){ if(q&&nx==='"'){ c+='"'; i++; } else { q=!q; } }
-        else if(ch===','&&!q){ r.push(c); c=''; }
-        else { c+=ch; }
+      if(cell.length||row.length){ row.push(cell); rows.push(row); }
+      if(!rows.length) return [];
+      const headers=rows[0].map(h=>h.trim());
+      const out=[];
+      for(let i=1;i<rows.length;i++){
+        const o={};
+        for(let j=0;j<headers.length;j++) o[headers[j]]=(rows[i][j]!==undefined?rows[i][j].trim():'');
+        out.push(o);
       }
-      r.push(c); return r;
+      return out;
     }
-    function esc(s){ if(!s) return ''; return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-    function imgUrl(h){ return '/properties/'+h.id+'/photo1.jpg'; }
-    function fbUrl(){ return '/image/logo.png'; }
+    function esc(s){ if(s===undefined||s===null) return ''; return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+    function coverUrl(h){ const m=manifest[h.id]; return (m&&m.cover)?m.cover:''; }
+    function galleryImgs(h){ const m=manifest[h.id]; return (m&&m.images)?m.images:[]; }
+    function galleryVids(h){ const m=manifest[h.id]; return (m&&m.videos)?m.videos:[]; }
+
+    // A listing is only shown when ALL key info is filled in on the Google Sheet.
+    function isComplete(h){
+      return !!(h.id && h.name && h.startingPrice && h.priceNum>0 && h.beds>0 && h.baths>0 && h.sqft>0 && h.status);
+    }
 
     function waMsg(home){
       const parts=[];
@@ -547,8 +575,22 @@
     async function fetchWithTimeout(url, timeout){
       const controller=new AbortController();
       const id=setTimeout(()=>controller.abort(), timeout||10000);
-      try{ const res=await fetch(url,{signal:controller.signal}); clearTimeout(id); return res; }
+      try{ const res=await fetch(url,{signal:controller.signal,cache:'no-store'}); clearTimeout(id); return res; }
       catch(e){ clearTimeout(id); throw e; }
+    }
+
+    async function loadManifest(){
+      try{ const res=await fetchWithTimeout(MANIFEST_URL,8000); if(res.ok) manifest=await res.json(); }
+      catch(e){ console.warn('manifest load failed', e); manifest={}; }
+    }
+
+    function parseFeatures(raw){
+      if(!raw) return [];
+      const cleaned=raw.trim();
+      if(cleaned.indexOf(',')>-1) return cleaned.split(',').map(s=>s.trim()).filter(Boolean);
+      const parts=cleaned.match(/[A-Z][a-z0-9'-]*(?:\s[a-z0-9'-]+)*(?:\s(?=[A-Z])|$)/g);
+      if(parts&&parts.length) return parts.map(s=>s.trim()).filter(Boolean);
+      return [cleaned];
     }
 
     async function loadData(){
@@ -559,30 +601,33 @@
         const rows=parseCSV(csv);
         allHomes=rows.map((row,idx)=>{
           const raw=row['Starting_price_raw']||row['starting_price_raw']||'';
-          const priceNum=parseFloat(raw.replace(/[^0-9.]/g,''))||0;
+          const priceNum=parseFloat(String(raw).replace(/[^0-9.]/g,''))||0;
           const beds=parseInt(row['Beds']||row['beds']||'0',10)||0;
           const baths=parseInt(row['Baths']||row['baths']||'0',10)||0;
           const sqft=parseInt(row['Sqft']||row['sqft']||'0',10)||0;
           const name=row['Name']||row['name']||'';
           const id=row['ID']||row['id']||('home-'+idx);
           const manufacturer=row['Manufacturer']||row['manufacturer']||'';
+          const country=row['Country']||row['country']||'';
+          const buildType=row['Build_type']||row['build_type']||'';
           const status=row['Status']||row['status']||'';
-          const startingPrice=row['Starting_price']||row['starting_price']||('$'+priceNum.toLocaleString());
+          const startingPrice=row['Starting_price']||row['starting_price']||'';
           const threedUrl=row['3D Link']||row['3D_link']||row['threed_embed_url']||row['threed_url']||'';
-          return {id,name:name||'Coming Soon',manufacturer:manufacturer||'Mobile View Properties',status:status||'Coming Soon',startingPrice:startingPrice||'TBD',priceNum,beds,baths,sqft,threedUrl};
-        }).filter(h=>h.id);
-        if(!allHomes.length) throw new Error('no homes');
-        filteredHomes=allHomes;
-        spinner.style.display='none'; filterBar.style.display='grid'; resultsGrid.style.display='grid';
-        renderGrid();
+          const features=parseFeatures(row['Features']||row['features']||'');
+          const about=row['Brand_about']||row['brand_about']||'';
+          return {id,name,manufacturer:manufacturer||'Mobile View Properties',country,buildType,status,startingPrice,priceNum,beds,baths,sqft,threedUrl,features,about};
+        });
+        allHomes=allHomes.filter(isComplete);
       }catch(err){
-        console.error('Sheet fetch failed, using fallback data:', err);
-        allHomes=DEMO_HOMES;
-        filteredHomes=allHomes;
-        spinner.style.display='none'; filterBar.style.display='grid'; resultsGrid.style.display='grid';
-        renderGrid();
+        console.error('Sheet fetch failed:', err);
+        allHomes=[];
       }
+      filteredHomes=allHomes;
+      currentPage=1;
+      spinner.style.display='none'; filterBar.style.display='grid'; resultsGrid.style.display='grid';
+      renderGrid();
     }
+
     function applyFilters(){
       const nq=(fn.value||'').toLowerCase().trim();
       const bq=parseInt(fb.value||'',10);
@@ -593,48 +638,112 @@
         if(bu!==Infinity&&h.priceNum>bu) return false;
         return true;
       });
+      currentPage=1;
       renderGrid();
     }
+
+    function totalPages(){ return Math.max(1, Math.ceil(filteredHomes.length/PER_PAGE)); }
+
     function renderGrid(){
       resultsGrid.querySelectorAll('.home-card,.home-card-empty').forEach(c=>c.remove());
-      resultsCount.textContent='Showing '+filteredHomes.length+' of '+allHomes.length+' listings';
+      const tp=totalPages();
+      if(currentPage>tp) currentPage=tp;
+      resultsCount.textContent='Showing '+filteredHomes.length+' listing'+(filteredHomes.length!==1?'s':'');
       if(!filteredHomes.length){
-        const e=document.createElement('div'); e.className='home-card-empty'; e.textContent='No homes match your search criteria.'; resultsGrid.appendChild(e); return;
+        const e=document.createElement('div'); e.className='home-card-empty'; e.textContent='No homes match your search criteria.'; resultsGrid.appendChild(e);
+        pagination.style.display='none';
+        return;
       }
-      filteredHomes.forEach(home=>{
+      const start=(currentPage-1)*PER_PAGE;
+      const pageHomes=filteredHomes.slice(start,start+PER_PAGE);
+      pageHomes.forEach(home=>{
         const card=document.createElement('div'); card.className='home-card';
         const st=(home.status||'').toLowerCase();
         const inStock=st.includes('stock')||st.includes('tour')||st.includes('ready');
         const badgeText=inStock?'In Stock':(home.status||'Available');
         const badgeClass=inStock?'home-card-badge':'home-card-badge out';
-        const iu=imgUrl(home), fu=fbUrl();
-        const sqftText=home.sqft>0?home.sqft.toLocaleString()+' SqFt':'—';
-        const bedsText=home.beds>0?home.beds+' Bed'+(home.beds!==1?'s':'') : '—';
-        const bathsText=home.baths>0?home.baths+' Bath'+(home.baths!==1?'s':'') : '—';
+        const iu=coverUrl(home), fu='/public/images/logo.png';
+        const sqftText=home.sqft>0?home.sqft.toLocaleString()+' SqFt':'\u2014';
+        const bedsText=home.beds>0?home.beds+' Bed'+(home.beds!==1?'s':'') : '\u2014';
+        const bathsText=home.baths>0?home.baths+' Bath'+(home.baths!==1?'s':'') : '\u2014';
         const waLink='https://wa.me/'+WA+'?text='+encodeURIComponent(waMsg(home));
-        card.innerHTML='<div class="home-card-img-wrap"><img class="home-card-img" src="'+esc(iu)+'" alt="'+esc(home.name)+'" loading="lazy" onerror="this.onerror=null;this.src=\''+esc(fu)+'\';this.classList.add(\'home-card-img-fallback\');this.classList.remove(\'home-card-img\');"><span class="'+badgeClass+'">'+esc(badgeText)+'</span></div><div class="home-card-body"><div class="home-card-name">'+esc(home.name)+'</div><div class="home-card-mfg">'+esc(home.manufacturer||'Mobile View Properties')+'</div><div class="home-card-meta"><div class="home-card-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>'+sqftText+'</div><div class="home-card-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 20h20M5 20V8l7-5 7 5v12M9 20v-6h6v6"/></svg>'+bedsText+'</div><div class="home-card-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 12h16M4 12l2-4h12l2 4M6 12v6h12v-6"/></svg>'+bathsText+'</div></div><div class="home-card-price">'+esc(home.startingPrice||'Contact for Price')+'</div><div class="home-card-actions"><a href="'+esc(waLink)+'" target="_blank" rel="noopener noreferrer" class="btn-wa-sm"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> WhatsApp</a><button class="btn-view-sm" data-id="'+esc(home.id)+'">View Details</button></div></div>';
+        const featureChips=(home.features||[]).slice(0,4).map(f=>'<span class="home-card-feature">'+esc(f)+'</span>').join('');
+        const imgTag=iu
+          ? '<img class="home-card-img" src="'+esc(iu)+'" alt="'+esc(home.name)+'" loading="lazy" onerror="this.onerror=null;this.src=\''+esc(fu)+'\';this.classList.add(\'home-card-img-fallback\');this.classList.remove(\'home-card-img\');">'
+          : '<img class="home-card-img home-card-img-fallback" src="'+esc(fu)+'" alt="'+esc(home.name)+'">';
+        card.innerHTML='<div class="home-card-img-wrap">'+imgTag+'<span class="'+badgeClass+'">'+esc(badgeText)+'</span></div>'+
+          '<div class="home-card-body"><div class="home-card-name">'+esc(home.name)+'</div>'+
+          '<div class="home-card-mfg">'+esc(home.manufacturer||'Mobile View Properties')+(home.country?' \u00b7 '+esc(home.country):'')+'</div>'+
+          '<div class="home-card-meta">'+
+            '<div class="home-card-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>'+sqftText+'</div>'+
+            '<div class="home-card-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 20h20M5 20V8l7-5 7 5v12M9 20v-6h6v6"/></svg>'+bedsText+'</div>'+
+            '<div class="home-card-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 12h16M4 12l2-4h12l2 4M6 12v6h12v-6"/></svg>'+bathsText+'</div>'+
+          '</div>'+
+          (featureChips?'<div class="home-card-features">'+featureChips+'</div>':'')+
+          '<div class="home-card-price">'+esc(home.startingPrice||'Contact for Price')+'</div>'+
+          '<div class="home-card-actions">'+
+            '<a href="'+esc(waLink)+'" target="_blank" rel="noopener noreferrer" class="btn-wa-sm"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/></svg>Negotiate</a>'+
+            '<button type="button" class="btn-view-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="16" height="16"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>View Home</button>'+
+          '</div></div>';
         card.querySelector('.btn-view-sm').addEventListener('click',e=>{ e.stopPropagation(); openModal(home); });
         resultsGrid.appendChild(card);
       });
+      pagination.style.display='flex';
+      pageInfo.textContent='Page '+currentPage+' of '+tp;
+      prevBtn.disabled=currentPage<=1;
+      nextBtn.disabled=currentPage>=tp;
     }
+
+    prevBtn.addEventListener('click',()=>{ if(currentPage>1){ currentPage--; renderGrid(); document.getElementById('showroom').scrollIntoView({behavior:'smooth'}); } });
+    nextBtn.addEventListener('click',()=>{ if(currentPage<totalPages()){ currentPage++; renderGrid(); document.getElementById('showroom').scrollIntoView({behavior:'smooth'}); } });
+
     function openModal(home){
       const media=document.getElementById('modalMedia');
       const tabP=document.getElementById('tabPhotos'); const tab3=document.getElementById('tab3D');
       document.getElementById('modalName').textContent=home.name||'Home';
       document.getElementById('modalMfg').textContent=home.manufacturer||'Mobile View Properties';
       document.getElementById('modalPrice').textContent=home.startingPrice||'Contact for Price';
-      document.getElementById('modalSqft').textContent=home.sqft>0?home.sqft.toLocaleString():'—';
-      document.getElementById('modalBeds').textContent=home.beds>0?home.beds:'—';
-      document.getElementById('modalBaths').textContent=home.baths>0?home.baths:'—';
+      document.getElementById('modalSqft').textContent=home.sqft>0?home.sqft.toLocaleString():'\u2014';
+      document.getElementById('modalBeds').textContent=home.beds>0?home.beds:'\u2014';
+      document.getElementById('modalBaths').textContent=home.baths>0?home.baths:'\u2014';
+
+      const featWrap=document.getElementById('modalFeaturesWrap');
+      const featList=document.getElementById('modalFeatures');
+      const about=document.getElementById('modalAbout');
+      if((home.features&&home.features.length)||home.about){
+        featList.innerHTML=(home.features||[]).map(f=>'<span class="modal-feature">'+esc(f)+'</span>').join('');
+        about.textContent=home.about||'';
+        featWrap.style.display='block';
+      } else { featWrap.style.display='none'; }
+
       const msg=waMsg(home);
       document.getElementById('modalWhatsApp').href='https://wa.me/'+WA+'?text='+encodeURIComponent(msg);
       document.getElementById('modalWhatsApp2').href='https://wa.me/'+WA+'?text='+encodeURIComponent(msg);
-      function show3D(){ tab3.classList.add('active'); tabP.classList.remove('active'); if(home.threedUrl){ media.innerHTML='<iframe src="'+esc(home.threedUrl)+'" allow="fullscreen; xr-spatial-tracking" loading="lazy"></iframe>'; } else { media.innerHTML='<div class="modal-media-placeholder"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg><span>No 3D tour available for this model.</span></div>'; } }
-      function showPhotos(){ tabP.classList.add('active'); tab3.classList.remove('active'); const iu=imgUrl(home), fu=fbUrl(); media.innerHTML='<img src="'+esc(iu)+'" alt="'+esc(home.name)+'" style="width:100%;height:100%;object-fit:cover;" onerror="this.onerror=null;this.src=\''+esc(fu)+'\';this.style.objectFit=\'contain\';this.style.padding=\'40px\';this.style.opacity=\'0.4\';">'; }
-      tab3.onclick=show3D; tabP.onclick=showPhotos; show3D();
+
+      function show3D(){ tab3.classList.add('active'); tabP.classList.remove('active'); media.style.aspectRatio=''; if(home.threedUrl){ media.innerHTML='<iframe src="'+esc(home.threedUrl)+'" allow="fullscreen; xr-spatial-tracking" loading="lazy"></iframe>'; } else { media.innerHTML='<div class="modal-media-placeholder"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg><span>No 3D tour available for this model.</span></div>'; } }
+      function showPhotos(){
+        tabP.classList.add('active'); tab3.classList.remove('active');
+        const imgs=galleryImgs(home), vids=galleryVids(home);
+        if(!imgs.length&&!vids.length){
+          const fu='/public/images/logo.png';
+          media.style.aspectRatio='';
+          media.innerHTML='<img src="'+esc(fu)+'" alt="'+esc(home.name)+'" style="width:100%;height:100%;object-fit:contain;padding:40px;opacity:0.4;">';
+          return;
+        }
+        let html='<div class="modal-gallery">';
+        vids.forEach(v=>{ html+='<video controls preload="metadata" src="'+esc(v)+'"></video>'; });
+        imgs.forEach(src=>{ html+='<img src="'+esc(src)+'" alt="'+esc(home.name)+'" loading="lazy" onclick="window.__mvpZoom&&window.__mvpZoom(this.src)">'; });
+        html+='</div>';
+        media.style.aspectRatio='auto';
+        media.innerHTML=html;
+      }
+      tab3.onclick=show3D; tabP.onclick=showPhotos;
+      showPhotos();
       modal.classList.add('active'); document.body.style.overflow='hidden';
     }
-    function closeModal(){ modal.classList.remove('active'); document.body.style.overflow=''; document.getElementById('modalMedia').innerHTML='<div class="modal-media-placeholder"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg><span>3D Tour loading...</span></div>'; }
+    window.__mvpZoom=function(src){ window.open(src,'_blank','noopener'); };
+
+    function closeModal(){ modal.classList.remove('active'); document.body.style.overflow=''; const m=document.getElementById('modalMedia'); m.style.aspectRatio=''; m.innerHTML='<div class="modal-media-placeholder"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg><span>3D Tour loading...</span></div>'; }
     modalClose.addEventListener('click',closeModal);
     modal.addEventListener('click',e=>{ if(e.target===modal) closeModal(); });
     document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&modal.classList.contains('active')) closeModal(); });
@@ -654,7 +763,7 @@
       document.getElementById('successMsg').classList.add('show');
     });
 
-    loadData(); setInterval(loadData,60000);
+    (async function init(){ await loadManifest(); await loadData(); setInterval(async()=>{ await loadManifest(); await loadData(); },60000); })();
   })();
   </script>
 </body>
