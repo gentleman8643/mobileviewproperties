@@ -32,7 +32,7 @@
     .nav-toggle{display:none;background:none;border:none;color:var(--text);cursor:pointer;padding:8px}
 
     .hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding:120px 24px 80px}
-    .hero-bg{position:absolute;inset:0;z-index:0;background:url('/public/images/hero.png') center/cover;filter:brightness(.35)}
+    .hero-bg{position:absolute;inset:0;z-index:0;background:url('/public/images/hero.png') center/cover;background-size:cover;filter:brightness(.45) saturate(1.05);transform:scale(1.05)}
     .hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(to bottom,rgba(10,10,10,.6),rgba(10,10,10,.3) 50%,rgba(10,10,10,.9))}
     .hero-content{position:relative;z-index:2;max-width:800px}
     .hero-eyebrow{display:inline-block;font-size:.75rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(245,158,11,.35);padding:6px 14px;border-radius:6px;margin-bottom:24px}
@@ -89,10 +89,10 @@
     .page-btn:hover:not(:disabled){border-color:var(--gold);color:var(--gold)}
     .page-btn:disabled{opacity:.4;cursor:not-allowed}
     .page-info{font-size:.85rem;color:var(--muted);font-weight:500;min-width:110px;text-align:center}
-    .modal-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px;padding:16px;max-height:340px;overflow-y:auto;background:#000}
-    .modal-gallery img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:6px;cursor:pointer;transition:.15s ease}
-    .modal-gallery img:hover{transform:scale(1.03);outline:2px solid var(--gold)}
-    .modal-gallery video{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:6px;grid-column:1/-1}
+    .modal-gallery{display:flex;flex-direction:column;gap:12px;padding:16px;max-height:none;overflow-y:auto;background:#000}
+    .modal-gallery img{width:100%;height:auto;display:block;border-radius:8px;cursor:zoom-in;transition:.15s ease}
+    .modal-gallery img:hover{outline:2px solid var(--gold)}
+    .modal-gallery video{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:8px}
     .modal-features{padding:0 24px 24px}
     .modal-features-title{font-size:.8rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
     .modal-features-list{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
@@ -385,7 +385,7 @@
       <div class="types-grid">
         <a href="manufactured.html" class="type-card">
           <div class="type-card-img-wrap">
-            <img class="type-card-img" src="https://s7d9.scene7.com/is/public/images/championhomes/Exterior_%201%20Crop?wid=800&hei=500&fit=crop" alt="Manufactured Homes" loading="lazy">
+            <img class="type-card-img" src="/public/images/Manufactured%20Homes.jpg" alt="Manufactured Homes" loading="lazy">
           </div>
           <div class="type-card-body">
             <div class="type-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
@@ -396,7 +396,7 @@
         </a>
         <a href="modular.html" class="type-card">
           <div class="type-card-img-wrap">
-            <img class="type-card-img" src="https://s7d9.scene7.com/is/public/images/championhomes/0612-MV-Champion-0017%20copy?wid=800&hei=500&fit=crop" alt="Modular Homes" loading="lazy">
+            <img class="type-card-img" src="/public/images/Modular%20Home.jpg" alt="Modular Homes" loading="lazy">
           </div>
           <div class="type-card-body">
             <div class="type-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
@@ -407,7 +407,7 @@
         </a>
         <a href="park-models.html" class="type-card">
           <div class="type-card-img-wrap">
-            <img class="type-card-img" src="https://s7d9.scene7.com/is/public/images/championhomes/26-print-park-model-528-070-014%20copy?wid=800&hei=500&fit=crop" alt="Park Models & Cabins" loading="lazy">
+            <img class="type-card-img" src="/public/images/Park%20Models%20%26%20Cabins.jpg" alt="Park Models & Cabins" loading="lazy">
           </div>
           <div class="type-card-body">
             <div class="type-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 10l7-7 7 7"/><path d="M12 3v18"/></svg></div>
@@ -741,7 +741,17 @@
       showPhotos();
       modal.classList.add('active'); document.body.style.overflow='hidden';
     }
-    window.__mvpZoom=function(src){ window.open(src,'_blank','noopener'); };
+    window.__mvpZoom=function(src){
+      const ov=document.createElement('div');
+      ov.style.cssText='position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,.95);display:flex;align-items:center;justify-content:center;padding:24px;cursor:zoom-out';
+      const img=document.createElement('img');
+      img.src=src; img.style.cssText='max-width:100%;max-height:100%;object-fit:contain;border-radius:8px';
+      img.onclick=function(e){ e.stopPropagation(); ov.remove(); document.body.style.overflow=''; };
+      ov.appendChild(img);
+      ov.onclick=function(){ ov.remove(); document.body.style.overflow=''; };
+      document.body.appendChild(ov);
+      document.body.style.overflow='hidden';
+    };
 
     function closeModal(){ modal.classList.remove('active'); document.body.style.overflow=''; const m=document.getElementById('modalMedia'); m.style.aspectRatio=''; m.innerHTML='<div class="modal-media-placeholder"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg><span>3D Tour loading...</span></div>'; }
     modalClose.addEventListener('click',closeModal);
