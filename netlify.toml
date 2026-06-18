@@ -1,6 +1,6 @@
 [build]
   publish = "."
-  command = "node scripts/generate-manifest.js"
+  command = "node scripts/generate-manifest.cjs"
 
 [[redirects]]
   from = "/*"

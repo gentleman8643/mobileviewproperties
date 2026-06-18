@@ -1,5 +1,5 @@
 /**
- * Scans public/properties/<ID>/ folders and builds public/properties/manifest.json
+ * Scans public/properties/* folders and builds public/properties/manifest.json
  * mapping each property ID to every image and video file inside its folder.
  *
  * This runs automatically on every deploy (see netlify.toml / vercel.json), so
@@ -8,11 +8,9 @@
  */
 const fs = require("fs");
 const path = require("path");
-
 const ROOT = path.join(__dirname, "..", "public", "properties");
 const IMAGE_EXT = [".jpg", ".jpeg", ".png", ".webp", ".gif", ".avif"];
 const VIDEO_EXT = [".mp4", ".webm", ".mov", ".m4v", ".ogg"];
-
 function rank(name) {
   // Surface exterior/elevation shots first so they become the cover image.
   const n = name.toLowerCase();
@@ -20,7 +18,6 @@ function rank(name) {
   if (n.includes("standard") || n.includes("front")) return 1;
   return 2;
 }
-
 function build() {
   const manifest = {};
   if (!fs.existsSync(ROOT)) {
@@ -31,7 +28,6 @@ function build() {
     .readdirSync(ROOT, { withFileTypes: true })
     .filter((d) => d.isDirectory())
     .map((d) => d.name);
-
   for (const id of ids) {
     const dir = path.join(ROOT, id);
     const files = fs.readdirSync(dir).filter((f) => !f.startsWith("."));
@@ -41,7 +37,6 @@ function build() {
     const videos = files
       .filter((f) => VIDEO_EXT.includes(path.extname(f).toLowerCase()))
       .sort((a, b) => a.localeCompare(b));
-
     const enc = (f) => "/public/properties/" + id + "/" + encodeURIComponent(f);
     manifest[id] = {
       images: images.map(enc),
@@ -51,8 +46,11 @@ function build() {
   }
   return manifest;
 }
-
 const manifest = build();
+if (!fs.existsSync(ROOT)) {
+  console.log("[manifest] skipping write — properties directory does not exist yet");
+  process.exit(0);
+}
 const out = path.join(ROOT, "manifest.json");
 fs.writeFileSync(out, JSON.stringify(manifest, null, 2));
 console.log(

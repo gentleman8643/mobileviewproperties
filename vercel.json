@@ -1,7 +1,7 @@
 {
   "cleanUrls": false,
   "trailingSlash": false,
-  "buildCommand": "node scripts/generate-manifest.js",
+  "buildCommand": "node scripts/generate-manifest.cjs",
   "outputDirectory": ".",
   "headers": [
     {
