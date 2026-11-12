@@ -32,7 +32,7 @@
     .nav-toggle{display:none;background:none;border:none;color:var(--text);cursor:pointer;padding:8px}
 
     .hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding:120px 24px 80px}
-    .hero-bg{position:absolute;inset:0;z-index:0;background:url('/public/images/hero.png') center/cover;background-size:cover;filter:brightness(.45) saturate(1.05);transform:scale(1.05)}
+    .hero-bg{position:absolute;inset:0;z-index:0;background:url('/public/images/hero.webp') center/cover;background-size:cover;filter:brightness(.45) saturate(1.05);transform:scale(1.05)}
     .hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(to bottom,rgba(10,10,10,.6),rgba(10,10,10,.3) 50%,rgba(10,10,10,.9))}
     .hero-content{position:relative;z-index:2;max-width:800px}
     .hero-eyebrow{display:inline-block;font-size:.75rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(245,158,11,.35);padding:6px 14px;border-radius:6px;margin-bottom:24px}
@@ -232,7 +232,7 @@
 <body>
   <nav class="nav">
     <div class="max">
-      <img src="/public/images/logo.png" alt="Mobile View Properties" class="nav-logo">
+      <img src="/public/images/logo.webp" alt="Mobile View Properties" class="nav-logo">
       <div class="nav-links" id="navLinks">
         <a href="#showroom">Showroom</a>
         <a href="#metrics">Our Impact</a>
@@ -311,7 +311,7 @@
       </div>
       <div class="modal-subbar">
         <div class="modal-subbar-brand">
-          <img src="/public/images/logo.png" alt="Mobile View Properties" class="modal-subbar-logo">
+          <img src="/public/images/logo.webp" alt="Mobile View Properties" class="modal-subbar-logo">
           <div class="modal-subbar-text"><strong>Mobile View Properties</strong><br>Marilyn Alvarado, CEO</div>
         </div>
         <div class="modal-tabs">
@@ -470,7 +470,7 @@
     <div class="max">
       <div class="footer-grid">
         <div>
-          <img src="/public/images/logo.png" alt="Mobile View Properties" class="footer-logo">
+          <img src="/public/images/logo.webp" alt="Mobile View Properties" class="footer-logo">
           <div class="footer-col-text">Mobile View Properties — Manufactured & Sold globally by CEO Marilyn Alvarado.</div>
         </div>
         <div>
@@ -670,7 +670,7 @@
         const inStock=st.includes('stock')||st.includes('tour')||st.includes('ready');
         const badgeText=home.status||'Available';
         const badgeClass=inStock?'home-card-badge':'home-card-badge out';
-        const iu=coverUrl(home), fu='/public/images/logo.png';
+        const iu=coverUrl(home), fu='/public/images/logo.webp';
         const sqftText=home.sqft>0?home.sqft.toLocaleString()+' SqFt':'\u2014';
         const bedsText=home.beds>0?home.beds+' Bed'+(home.beds!==1?'s':'') : '\u2014';
         const bathsText=home.baths>0?home.baths+' Bath'+(home.baths!==1?'s':'') : '\u2014';
@@ -734,7 +734,7 @@
         tabP.classList.add('active'); tab3.classList.remove('active');
         const imgs=galleryImgs(home), vids=galleryVids(home);
         if(!imgs.length&&!vids.length){
-          const fu='/public/images/logo.png';
+          const fu='/public/images/logo.webp';
           media.classList.remove('has-gallery');
           media.style.aspectRatio='16/9';
           media.innerHTML='<img src="'+esc(fu)+'" alt="'+esc(home.name)+'" style="width:100%;height:100%;object-fit:contain;padding:40px;opacity:0.4;">';
@@ -758,7 +758,7 @@
         if(allMedia.length>1){
           html+='<div class="modal-gallery-thumbs">';
           allMedia.forEach((item,i)=>{
-            if(item.type==='video') html+='<img class="modal-thumb" src="/public/images/logo.png" alt="video" data-idx="'+i+'" style="opacity:.5;">';
+            if(item.type==='video') html+='<img class="modal-thumb" src="/public/images/logo.webp" alt="video" data-idx="'+i+'" style="opacity:.5;">';
             else html+='<img class="modal-thumb" src="'+esc(item.src)+'" alt="photo" data-idx="'+i+'" loading="lazy">';
           });
           html+='</div>';

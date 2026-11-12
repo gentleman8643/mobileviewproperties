@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Home Purchase & Building Preference Application — Mobile View Properties</title>
+  <meta name="description" content="Apply with Mobile View Properties: tell us your preferred home design, land, budget, payment preferences and delivery timeline.">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#0a0a0a">
+  <link rel="icon" type="image/png" href="/public/images/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/public/app/app.css">
+  <script src="/public/app/config.js"></script>
+</head>
+<body>
+  <header class="app-header">
+    <div class="app-header-inner">
+      <a href="/" aria-label="Mobile View Properties home">
+        <img id="brandLogo" class="app-logo" src="/public/images/logo.webp" alt="Mobile View Properties">
+      </a>
+      <a class="app-header-link" href="/">Back to website</a>
+    </div>
+  </header>
+
+  <main class="app-main">
+    <section class="app-hero" id="hero">
+      <span class="app-eyebrow" id="brandName">Mobile View Properties</span>
+      <h1 class="app-title">Mobile Home Purchase &amp; Building Preference Application</h1>
+      <p class="app-intro">Thank you for choosing Mobile View Properties. Please complete this application so our team can understand your preferred home design, land requirements, budget, payment preferences and delivery timeline. Our team will review your information and contact you.</p>
+    </section>
+
+    <div id="app" aria-live="polite">
+      <div class="card" style="text-align:center;color:var(--text2)">Loading the application form…</div>
+    </div>
+    <noscript><div class="alert alert-error">Please enable JavaScript to complete this application.</div></noscript>
+  </main>
+
+  <footer class="app-footer">
+    <div id="footerContact"></div>
+    <div>&copy; <span id="year"></span> Mobile View Properties. Your information is kept private and only shared with our team.</div>
+  </footer>
+
+  <div class="toast" id="toast" role="status"></div>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script type="module" src="/public/app/form.js"></script>
+</body>
+</html>

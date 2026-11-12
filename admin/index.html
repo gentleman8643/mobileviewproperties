@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard — Mobile View Properties</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0a0a0a">
+  <link rel="icon" type="image/png" href="/public/images/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/public/app/app.css">
+  <link rel="stylesheet" href="/public/app/admin.css">
+  <script src="/public/app/config.js"></script>
+</head>
+<body class="admin-body auth-pending">
+  <div class="auth-check" id="authCheck">Checking your login…</div>
+
+  <header class="app-header admin-header">
+    <div class="admin-header-inner">
+      <a href="/admin" class="admin-brand"><img class="app-logo" src="/public/images/logo.webp" alt="Mobile View Properties"><span>Admin</span></a>
+      <nav class="admin-tabs" role="tablist" aria-label="Admin sections">
+        <button type="button" role="tab" class="admin-tab" data-tab="applications" aria-selected="true">Applications</button>
+        <button type="button" role="tab" class="admin-tab" data-tab="settings" aria-selected="false">Business Settings</button>
+        <button type="button" role="tab" class="admin-tab" data-tab="account" aria-selected="false">Account</button>
+      </nav>
+      <div class="admin-user"><span id="adminName"></span><button type="button" class="btn btn-ghost btn-sm" id="signOutBtn">Sign out</button></div>
+    </div>
+  </header>
+
+  <main class="admin-main">
+    <section id="tab-applications" class="admin-panel">
+      <div class="admin-title-row">
+        <h1 class="admin-h1">Customer Applications</h1>
+        <div class="admin-title-actions">
+          <button type="button" class="btn btn-ghost btn-sm" id="copyLinkBtn">Copy customer form link</button>
+          <button type="button" class="btn btn-ghost btn-sm" id="refreshBtn">Refresh</button>
+        </div>
+      </div>
+      <div class="stats" id="stats"></div>
+      <div class="toolbar">
+        <input class="input" id="search" type="search" placeholder="Search name, reference, phone or email" aria-label="Search applications">
+        <select class="input" id="fStatus" aria-label="Filter by status"><option value="">All statuses</option></select>
+        <select class="input" id="fPayment" aria-label="Filter by payment preference"><option value="">All payment preferences</option></select>
+        <select class="input" id="fHome" aria-label="Filter by home type"><option value="">All home types</option></select>
+        <input class="input" id="fFrom" type="date" aria-label="Submitted from">
+        <input class="input" id="fTo" type="date" aria-label="Submitted to">
+        <button type="button" class="btn btn-ghost btn-sm" id="clearFilters">Clear filters</button>
+      </div>
+      <p class="result-count" id="resultCount" aria-live="polite"></p>
+      <div class="table-wrap">
+        <table class="app-table">
+          <thead><tr>
+            <th>Reference</th><th>Customer</th><th>Phone</th><th>Email</th><th>Home type</th><th>Beds</th>
+            <th>Land size</th><th>Budget</th><th>Payment</th><th>Readiness</th><th>Needed</th><th>Submitted</th><th>Status</th>
+          </tr></thead>
+          <tbody id="appRows"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="tab-settings" class="admin-panel" hidden></section>
+    <section id="tab-account" class="admin-panel" hidden></section>
+  </main>
+
+  <div class="drawer" id="drawer" hidden role="dialog" aria-modal="true" aria-labelledby="drawerTitle">
+    <div class="drawer-backdrop" data-close></div>
+    <div class="drawer-panel" id="drawerPanel"></div>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+  <script type="module" src="/public/app/admin.js"></script>
+</body>
+</html>

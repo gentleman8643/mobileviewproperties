@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login — Mobile View Properties</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0a0a0a">
+  <link rel="icon" type="image/png" href="/public/images/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/public/app/app.css">
+  <link rel="stylesheet" href="/public/app/admin.css">
+  <script src="/public/app/config.js"></script>
+</head>
+<body class="login-body">
+  <main class="login-wrap">
+    <img class="login-logo" src="/public/images/logo.webp" alt="Mobile View Properties">
+    <form class="card login-card" id="loginForm" novalidate>
+      <h1 class="step-title">Administrator Login</h1>
+      <p class="step-intro">Sign in to review customer applications.</p>
+      <div id="loginMsg"></div>
+      <div class="field" style="margin-bottom:16px">
+        <label class="field-label" for="username">Username</label>
+        <input class="input" id="username" name="username" autocomplete="username" autocapitalize="off" spellcheck="false" required>
+      </div>
+      <div class="field" style="margin-bottom:22px">
+        <label class="field-label" for="password">Password</label>
+        <div class="pw-wrap">
+          <input class="input" id="password" name="password" type="password" autocomplete="current-password" required>
+          <button type="button" class="pw-toggle" id="pwToggle" aria-label="Show password">Show</button>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary" id="loginBtn" style="width:100%">Sign in</button>
+    </form>
+    <p class="login-foot"><a href="/">&larr; Back to website</a></p>
+  </main>
+  <script type="module" src="/public/app/admin-login.js"></script>
+</body>
+</html>
